@@ -137,7 +137,8 @@ export default function WebhookListPage() {
               action={
                 <button
                   onClick={() => navigate("/org/dashboard/webhooks/create")}
-                  className="cd-btn cd-btn-primary flex items-center gap-2 px-8 py-3 rounded-2xl shadow-xl shadow-[var(--cd-primary-subtle)] hover:scale-105 transition-all"
+                  className="cd-btn cd-btn-primary flex items-center gap-2 px-8 py-3 rounded-2xl hover:scale-105 transition-all"
+                  style={{ boxShadow: "0 18px 60px -36px var(--cd-primary-subtle)" }}
                 >
                   <Plus size={18} /> Create Webhook
                 </button>
@@ -153,7 +154,10 @@ export default function WebhookListPage() {
               filteredCount={paginatedData?.total || 0}
             />
 
-            <main className="mx-auto w-full max-w-[1440px] px-4 py-5 sm:px-8 sm:py-8 lg:px-10 flex flex-col gap-6">
+            <main
+              className="mx-auto w-full px-4 py-5 sm:px-8 sm:py-8 lg:px-10 flex flex-col gap-6"
+              style={{ maxWidth: 1440 }}
+            >
               {/* Desktop View */}
               <div className="hidden md:block">
                 <div
@@ -211,7 +215,7 @@ export default function WebhookListPage() {
                   className="flex items-center justify-between px-2 py-4"
                   style={{ color: "var(--cd-text)" }}
                 >
-                  <div className="text-sm text-[var(--cd-text-muted)]">
+                  <div className="text-sm" style={{ color: "var(--cd-text-muted)" }}>
                     Showing page {filters.page} of {totalPages}
                   </div>
                   <div className="flex gap-2">

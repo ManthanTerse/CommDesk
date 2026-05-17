@@ -104,8 +104,8 @@ describe("WebhookForm Component", () => {
       renderWithProviders(<WebhookForm mode="create" />);
 
       expect(screen.getByPlaceholderText("Optional secret token")).toBeInTheDocument();
-      const secretButtons = screen.getAllByRole("button");
-      expect(secretButtons.length).toBeGreaterThanOrEqual(2); // At least regenerate and eye toggle
+      expect(screen.getByRole("button", { name: /regenerate secret/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /show secret/i })).toBeInTheDocument();
     });
 
     it("should display permissions field", () => {
@@ -239,38 +239,26 @@ describe("WebhookForm Component", () => {
     it("should allow selecting a single event", async () => {
       renderWithProviders(<WebhookForm mode="create" />);
 
-      // Find and click an event button (they appear as clickable divs with event names)
-      const eventButtons = screen.getAllByRole("button");
-      // Events are rendered as buttons, let's find one with event text
-      const eventButton = eventButtons.find((btn) => btn.textContent?.includes("Created") || btn.textContent?.includes("Updated"));
-
-      if (eventButton) {
-        fireEvent.click(eventButton);
-        expect(screen.getByText("1 Selected")).toBeInTheDocument();
-      }
+      fireEvent.click(screen.getByRole("button", { name: /member created/i }));
+      expect(screen.getByText("1 Selected")).toBeInTheDocument();
     });
 
     it("should allow selecting multiple events", async () => {
       renderWithProviders(<WebhookForm mode="create" />);
 
-      const eventDivs = screen.getAllByRole("button");
-      // Click first event
-      if (eventDivs[0]) fireEvent.click(eventDivs[0]);
-      // Click second event
-      if (eventDivs[1]) fireEvent.click(eventDivs[1]);
+      fireEvent.click(screen.getByRole("button", { name: /member created/i }));
+      fireEvent.click(screen.getByRole("button", { name: /event created/i }));
 
-      expect(screen.getByText(/[2-9]|1[0-9]+ Selected/)).toBeInTheDocument();
+      expect(screen.getByText("2 Selected")).toBeInTheDocument();
     });
 
     it("should allow deselecting an event", async () => {
       renderWithProviders(<WebhookForm mode="create" />);
 
-      const eventButtons = screen.getAllByRole("button");
-      if (eventButtons[0]) {
-        fireEvent.click(eventButtons[0]); // Select
-        fireEvent.click(eventButtons[0]); // Deselect
-        expect(screen.getByText("0 Selected")).toBeInTheDocument();
-      }
+      const memberEvent = screen.getByRole("button", { name: /member created/i });
+      fireEvent.click(memberEvent);
+      fireEvent.click(memberEvent);
+      expect(screen.getByText("0 Selected")).toBeInTheDocument();
     });
   });
 
@@ -318,9 +306,7 @@ describe("WebhookForm Component", () => {
       await user.type(nameInput, "Test Webhook");
       await user.type(urlInput, "https://example.com/webhook");
 
-      // Select an event
-      const eventButtons = screen.getAllByRole("button");
-      if (eventButtons[0]) fireEvent.click(eventButtons[0]);
+      fireEvent.click(screen.getByRole("button", { name: /member created/i }));
 
       const submitButton = screen.getByRole("button", { name: /Create Webhook/i });
       fireEvent.click(submitButton);
@@ -357,8 +343,7 @@ describe("WebhookForm Component", () => {
       await user.type(nameInput, "Test Webhook");
       await user.type(urlInput, "https://example.com/webhook");
 
-      const eventButtons = screen.getAllByRole("button");
-      if (eventButtons[0]) fireEvent.click(eventButtons[0]);
+      fireEvent.click(screen.getByRole("button", { name: /member created/i }));
 
       const submitButton = screen.getByRole("button", { name: /Create Webhook/i });
       fireEvent.click(submitButton);
@@ -383,8 +368,7 @@ describe("WebhookForm Component", () => {
       await user.type(nameInput, "Test Webhook");
       await user.type(urlInput, "https://example.com/webhook");
 
-      const eventButtons = screen.getAllByRole("button");
-      if (eventButtons[0]) fireEvent.click(eventButtons[0]);
+      fireEvent.click(screen.getByRole("button", { name: /member created/i }));
 
       const submitButton = screen.getByRole("button", { name: /Create Webhook/i });
       fireEvent.click(submitButton);
@@ -405,8 +389,7 @@ describe("WebhookForm Component", () => {
       await user.type(nameInput, "Test Webhook");
       await user.type(urlInput, "https://example.com/webhook");
 
-      const eventButtons = screen.getAllByRole("button");
-      if (eventButtons[0]) fireEvent.click(eventButtons[0]);
+      fireEvent.click(screen.getByRole("button", { name: /member created/i }));
 
       const submitButton = screen.getByRole("button", { name: /Create Webhook/i });
       fireEvent.click(submitButton);

@@ -73,14 +73,14 @@ export default function WebhookLogsPage() {
         >
           <Link
             to="/org/dashboard/webhooks"
-            className="hover:text-[var(--cd-text)] transition-colors"
+            className="hover:text-cd-text transition-colors"
           >
             Webhooks
           </Link>
           <span>/</span>
           <Link
             to={`/org/dashboard/webhooks/${id}`}
-            className="hover:text-[var(--cd-text)] transition-colors"
+            className="hover:text-cd-text transition-colors"
           >
             {webhook?.name || "Loading..."}
           </Link>
@@ -90,7 +90,7 @@ export default function WebhookLogsPage() {
         <div className="flex items-center gap-4 mt-2">
           <button
             onClick={() => navigate(-1)}
-            className="p-2 rounded-lg transition-colors hover:bg-[var(--cd-hover)]"
+            className="p-2 rounded-lg transition-colors hover:bg-cd-hover"
             style={{ color: "var(--cd-text-muted)" }}
           >
             <ArrowLeft size={20} />
@@ -168,7 +168,7 @@ export default function WebhookLogsPage() {
             className="flex items-center justify-between px-2 py-4"
             style={{ color: "var(--cd-text)" }}
           >
-            <div className="text-sm text-[var(--cd-text-muted)]">
+            <div className="text-sm text-cd-text-muted">
               Showing page {filters.page} of {totalPages}
             </div>
             <div className="flex gap-2">
