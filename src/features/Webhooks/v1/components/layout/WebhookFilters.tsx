@@ -124,7 +124,8 @@ export function PillDropdown<T extends string>({
           if (!isActive) (e.currentTarget as HTMLElement).style.backgroundColor = "var(--cd-hover)";
         }}
         onMouseLeave={(e) => {
-          if (!isActive) (e.currentTarget as HTMLElement).style.backgroundColor = "var(--cd-surface-2)";
+          if (!isActive)
+            (e.currentTarget as HTMLElement).style.backgroundColor = "var(--cd-surface-2)";
         }}
       >
         {isActive && (
@@ -295,8 +296,12 @@ export default function WebhookFiltersBar({ filters, onChange, filteredCount, to
         <p className="text-xs font-medium" style={{ color: "var(--cd-text-muted)" }}>
           {hasActive ? (
             <span className="flex items-center gap-1">
-              <span className="w-1 h-1 rounded-full" style={{ backgroundColor: "var(--cd-primary)" }} />
-              Showing <span style={{ color: "var(--cd-text)", fontWeight: 700 }}>{filteredCount}</span>{" "}
+              <span
+                className="w-1 h-1 rounded-full"
+                style={{ backgroundColor: "var(--cd-primary)" }}
+              />
+              Showing{" "}
+              <span style={{ color: "var(--cd-text)", fontWeight: 700 }}>{filteredCount}</span>{" "}
               results
             </span>
           ) : (

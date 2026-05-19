@@ -156,9 +156,7 @@ export default function WebhookForm({ mode, initialData }: Props) {
                 borderColor: errors.name ? undefined : "var(--cd-border)",
               }}
             />
-            {errors.name && (
-              <p className="mt-1.5 text-xs text-cd-danger">{errors.name.message}</p>
-            )}
+            {errors.name && <p className="mt-1.5 text-xs text-cd-danger">{errors.name.message}</p>}
           </div>
 
           {/* URL Field */}
@@ -181,9 +179,7 @@ export default function WebhookForm({ mode, initialData }: Props) {
                 }}
               />
             </div>
-            {errors.url && (
-              <p className="mt-1.5 text-xs text-cd-danger">{errors.url.message}</p>
-            )}
+            {errors.url && <p className="mt-1.5 text-xs text-cd-danger">{errors.url.message}</p>}
           </div>
 
           {/* Secret Field */}
@@ -240,8 +236,7 @@ export default function WebhookForm({ mode, initialData }: Props) {
           {/* Permissions Field */}
           <div className="mb-8">
             <label className="block text-sm font-semibold mb-2" style={{ color: "var(--cd-text)" }}>
-              Permissions{" "}
-              <span className="text-xs font-normal text-cd-text-muted">(Optional)</span>
+              Permissions <span className="text-xs font-normal text-cd-text-muted">(Optional)</span>
             </label>
             <input
               {...register("permissions")}
@@ -348,10 +343,7 @@ export default function WebhookForm({ mode, initialData }: Props) {
             <p className="text-xs font-bold" style={{ color: "var(--cd-text)" }}>
               {mode === "create" ? "New Webhook" : "Edit Webhook"}
             </p>
-            <p
-              className="text-[10px] truncate max-w-50"
-              style={{ color: "var(--cd-text-muted)" }}
-            >
+            <p className="text-[10px] truncate max-w-50" style={{ color: "var(--cd-text-muted)" }}>
               {watch("name") || "Untitled Webhook"}
             </p>
           </div>

@@ -71,10 +71,7 @@ export default function WebhookLogsPage() {
           className="flex items-center gap-3 mb-2 text-sm font-medium"
           style={{ color: "var(--cd-text-muted)" }}
         >
-          <Link
-            to="/org/dashboard/webhooks"
-            className="hover:text-cd-text transition-colors"
-          >
+          <Link to="/org/dashboard/webhooks" className="hover:text-cd-text transition-colors">
             Webhooks
           </Link>
           <span>/</span>

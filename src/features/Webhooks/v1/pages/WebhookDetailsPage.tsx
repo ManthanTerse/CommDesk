@@ -109,11 +109,7 @@ export default function WebhookDetailsPage() {
                 <Globe size={10} /> {webhook.url}
               </div>
               <button className="opacity-0 group-hover:opacity-100 transition-all p-1 rounded bg-cd-surface-2">
-                {copied ? (
-                  <Check size={10} className="text-cd-success" />
-                ) : (
-                  <Copy size={10} />
-                )}
+                {copied ? <Check size={10} className="text-cd-success" /> : <Copy size={10} />}
               </button>
             </div>
           </div>
@@ -164,10 +160,7 @@ export default function WebhookDetailsPage() {
                 color: webhook.status === "active" ? "var(--cd-success)" : "var(--cd-text-muted)",
               },
             ].map((stat, i) => (
-              <div
-                key={i}
-                className="p-6 flex flex-col gap-1 transition-colors hover:bg-cd-hover"
-              >
+              <div key={i} className="p-6 flex flex-col gap-1 transition-colors hover:bg-cd-hover">
                 <span className="text-[10px] font-black uppercase tracking-[0.15em] text-cd-text-muted opacity-60">
                   {stat.label}
                 </span>
@@ -188,49 +181,48 @@ export default function WebhookDetailsPage() {
                 </div>
               </div>
             ))}
-          {/* Test Result Banner (Conditional) */}
-          {testResult && (
-            <div
-              className={`rounded-2xl border p-5 flex items-center justify-between animate-in slide-in-from-top-4 duration-300 ${testResult.success ? "bg-cd-success-subtle border-cd-success" : "bg-cd-danger-subtle border-cd-danger"}`}
-            >
-              <div className="flex items-center gap-4">
-                <div
-                  className={`p-2.5 rounded-xl ${testResult.success ? "bg-cd-success text-white" : "bg-cd-danger text-white"}`}
-                >
-                  {testResult.success ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
-                </div>
-                <div>
-                  <h4
-                    className="font-bold text-sm"
-                    style={{
-                      color: testResult.success
-                        ? "var(--cd-success-text)"
-                        : "var(--cd-danger-text)",
-                    }}
-                  >
-                    {testResult.success ? "Connection Successful" : "Connection Failed"}
-                  </h4>
-                  <p
-                    className="text-xs opacity-80"
-                    style={{
-                      color: testResult.success
-                        ? "var(--cd-success-text)"
-                        : "var(--cd-danger-text)",
-                    }}
-                  >
-                    {testResult.message} • {format(testResult.timestamp, "HH:mm:ss")}
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => setTestResult(null)}
-                className="text-xs font-bold underline opacity-60 hover:opacity-100"
+            {/* Test Result Banner (Conditional) */}
+            {testResult && (
+              <div
+                className={`rounded-2xl border p-5 flex items-center justify-between animate-in slide-in-from-top-4 duration-300 ${testResult.success ? "bg-cd-success-subtle border-cd-success" : "bg-cd-danger-subtle border-cd-danger"}`}
               >
-                Dismiss
-              </button>
-            </div>
-          )}
-
+                <div className="flex items-center gap-4">
+                  <div
+                    className={`p-2.5 rounded-xl ${testResult.success ? "bg-cd-success text-white" : "bg-cd-danger text-white"}`}
+                  >
+                    {testResult.success ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
+                  </div>
+                  <div>
+                    <h4
+                      className="font-bold text-sm"
+                      style={{
+                        color: testResult.success
+                          ? "var(--cd-success-text)"
+                          : "var(--cd-danger-text)",
+                      }}
+                    >
+                      {testResult.success ? "Connection Successful" : "Connection Failed"}
+                    </h4>
+                    <p
+                      className="text-xs opacity-80"
+                      style={{
+                        color: testResult.success
+                          ? "var(--cd-success-text)"
+                          : "var(--cd-danger-text)",
+                      }}
+                    >
+                      {testResult.message} • {format(testResult.timestamp, "HH:mm:ss")}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setTestResult(null)}
+                  className="text-xs font-bold underline opacity-60 hover:opacity-100"
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -334,8 +326,8 @@ export default function WebhookDetailsPage() {
                   </div>
                   <p className="mt-4 text-[10px] text-cd-text-muted italic">
                     Note: Requests are POSTed with an{" "}
-                    <code className="text-cd-text font-bold">X-CommDesk-Signature</code>{" "}
-                    header for verification.
+                    <code className="text-cd-text font-bold">X-CommDesk-Signature</code> header for
+                    verification.
                   </p>
                 </div>
               </div>
@@ -418,9 +410,7 @@ export default function WebhookDetailsPage() {
                 </div>
                 <div className="flex justify-between items-center text-[10px]">
                   <span className="text-cd-text-muted font-medium">Internal ID</span>
-                  <span className="font-mono text-[9px] opacity-40 text-cd-text">
-                    {webhook.id}
-                  </span>
+                  <span className="font-mono text-[9px] opacity-40 text-cd-text">{webhook.id}</span>
                 </div>
               </div>
             </div>

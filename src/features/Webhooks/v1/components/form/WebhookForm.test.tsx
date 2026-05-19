@@ -86,7 +86,9 @@ describe("WebhookForm Component", () => {
 
       expect(screen.getByText("Endpoint Details")).toBeInTheDocument();
       expect(screen.getByPlaceholderText("e.g. Production Slack Alerts")).toBeInTheDocument();
-      expect(screen.getByPlaceholderText("https://your-domain.com/webhooks/commdesk")).toBeInTheDocument();
+      expect(
+        screen.getByPlaceholderText("https://your-domain.com/webhooks/commdesk"),
+      ).toBeInTheDocument();
       expect(screen.getByText("Subscribed Events")).toBeInTheDocument();
     });
 
@@ -349,11 +351,7 @@ describe("WebhookForm Component", () => {
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-        expect(mockAddToast).toHaveBeenCalledWith(
-          "success",
-          "Webhook created",
-          expect.any(String),
-        );
+        expect(mockAddToast).toHaveBeenCalledWith("success", "Webhook created", expect.any(String));
       });
     });
 
@@ -374,7 +372,11 @@ describe("WebhookForm Component", () => {
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-        expect(mockAddToast).toHaveBeenCalledWith("error", "Error saving webhook", expect.any(String));
+        expect(mockAddToast).toHaveBeenCalledWith(
+          "error",
+          "Error saving webhook",
+          expect.any(String),
+        );
       });
     });
 
