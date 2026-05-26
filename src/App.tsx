@@ -16,6 +16,13 @@ function App() {
       <OrgRoute />
       <MemberRoutes />
     </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <OrgRoute />
+
+        <MemberRoutes />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

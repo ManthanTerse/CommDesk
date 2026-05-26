@@ -1,13 +1,46 @@
 import { RiContactsBookFill } from "react-icons/ri";
-import { MdAssignment, MdDashboard, MdEvent, MdGroup, MdSettings, MdWork } from "react-icons/md";
+import { useEffect, useState } from "react";
+import {
+  MdAssignment,
+  MdDashboard,
+  MdEvent,
+  MdGroup,
+  MdSettings,
+  MdWork,
+  MdWebhook,
+  MdPayments,
+} from "react-icons/md";
 import { useTheme } from "@/theme";
 import { ThemeToggle } from "@/Component/ui/ThemeToggle";
 
 import SideBarLink from "../Components/SideBarLink";
-import { dashboardData } from "@/features/Member/v1/mock/dashboardData";
+
+import useAuthStore from "@/features/Auth/v1/Store/Auth.Store";
+
+import useOrganizationStore from "@/features/Auth/v1/Store/Organization.Store";
 
 const SideBar = () => {
+  const user = useAuthStore((state) => state.user);
+  const organization = useOrganizationStore((state) => state.organization);
+  const [profileImageFailed, setProfileImageFailed] = useState(false);
+
+  console.log("User in SideBar:", user);
+  console.log("Organization in SideBar:", organization);
   const { theme } = useTheme();
+
+  const communityName = organization?.CommunityName || "CommDesk";
+  const userRole = user?.role || "Admin";
+  const profileImageUrl = organization?.LogoUrl || "/defaultProfile.png";
+  const initials = communityName
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+
+  useEffect(() => {
+    setProfileImageFailed(false);
+  }, [profileImageUrl]);
 
   return (
     <div
@@ -49,6 +82,8 @@ const SideBar = () => {
         <SideBarLink icon={<MdGroup />} text="Teams" link="/org/member" />
         <SideBarLink icon={<MdEvent />} text="Events" link="/org/events" />
         <SideBarLink icon={<MdAssignment />} text="Tasks" link="/org/tasks" />
+        <SideBarLink icon={<MdWebhook />} text="Webhooks" link="/org/dashboard/webhooks" />
+        <SideBarLink icon={<MdPayments />} text="Payments" link="/org/billing" />
         <SideBarLink icon={<RiContactsBookFill />} text="Contact Submissions" link="/org/contact" />
 
         {/* Footer */}
@@ -65,17 +100,27 @@ const SideBar = () => {
             className="mt-3 w-full rounded-xl p-3 flex items-center gap-3 cursor-pointer transition-colors duration-150"
             style={{ backgroundColor: theme.bg.surfaceSecondary }}
           >
-            <img
-              src="https://randomuser.me/api/portraits/men/1.jpg"
-              alt="Profile"
-              className="w-9 h-9 rounded-full object-cover shrink-0"
-            />
+            {profileImageFailed ? (
+              <div
+                className="w-9 h-9 rounded-full shrink-0 flex items-center justify-center text-xs font-bold text-white"
+                style={{ backgroundColor: theme.primary.default }}
+              >
+                {initials || "CD"}
+              </div>
+            ) : (
+              <img
+                src={profileImageUrl}
+                alt="Profile"
+                className="w-9 h-9 rounded-full object-cover shrink-0"
+                onError={() => setProfileImageFailed(true)}
+              />
+            )}
             <div className="min-w-0 flex-1 flex flex-col justify-center gap-0.5">
               <p className="text-sm font-semibold truncate" style={{ color: theme.text.primary }}>
-                {dashboardData.user.name}
+                {communityName}
               </p>
               <p className="text-xs truncate font-medium" style={{ color: theme.primary.default }}>
-                {dashboardData.user.role}
+                {userRole}
               </p>
             </div>
           </div>
